@@ -1,0 +1,15 @@
+.sprite {
+    width: 100px; /* Largeur d'un seul frame de l'animation */
+    height: 100px; /* Hauteur d'un seul frame de l'animation */
+    background-image: url('sprite.png'); /* Chemin de votre feuille de sprite */
+    animation: play-sprite 1s steps(8) infinite; /* L'animation pour parcourir les frames */
+}
+
+@keyframes play-sprite {
+    from {
+        background-position: 0px; /* Position initiale de la feuille de sprite */
+    }
+    to {
+        background-position: -800px; /* Position finale de la feuille de sprite (8 frames * 100px) */
+    }
+}
