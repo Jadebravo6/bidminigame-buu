@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameContainer = document.getElementById("game-container");
     const replayButton = document.getElementById('replay-btn');
     const backgroundMusic = document.getElementById('background-music');
+
     endGameContainer.style.display = 'none';
 
     startButton.addEventListener("click", () => {
@@ -19,13 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentNumber = 1;
         let errors = 0;
         const errorsDisplay = document.getElementById("errors");
-        const bubbleSize = 116;
+        const bubbleSize = 100; // taille des bulles
         const numBubbles = 20;
         const bubbles = [];
-        let timer = 20;
+        let timer = 50;
         const timerDisplay = document.getElementById("timer");
         let timerInterval;
-        const bubbleIcon = document.querySelector('.bubble-icon');
         const bubblesPoppedDisplay = document.getElementById("bubbles-popped");
         let bubblesPopped = 0;
         const bubblePopAudio = document.getElementById('bubble-pop-audio');
@@ -44,25 +44,53 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
 
         const createBubble = (number) => {
-            const bubble = document.createElement('button');
-            bubble.classList.add('bubble');
-            bubble.dataset.number = number;
-            const img = document.createElement('img');
+            const bubbleCanvas = document.createElement('canvas');
+            bubbleCanvas.width = bubbleSize;
+            bubbleCanvas.height = bubbleSize;
+            bubbleCanvas.classList.add('bubble');
+            bubbleCanvas.dataset.number = number;
+
+            const ctx = bubbleCanvas.getContext('2d');
+            const img = new Image();
             img.src = 'assets/sprite/bublepix2.png';
-            img.width = bubbleSize;
-            img.height = bubbleSize;
-            bubble.appendChild(img);
-            const numberText = document.createElement('div');
-            numberText.classList.add('number-text');
-            numberText.textContent = number;
-            bubble.appendChild(numberText);
-            gameContainer.appendChild(bubble);
-            return bubble;
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, bubbleSize, bubbleSize);
+                ctx.font = `${bubbleSize / 5}px Arial`;
+                ctx.fillStyle = "white";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(number, bubbleSize / 2, bubbleSize / 2);
+            };
+
+            gameContainer.appendChild(bubbleCanvas);
+            return bubbleCanvas;
+        };
+
+        const isOverlapping = (x, y, size, bubbles) => {
+            for (let bubble of bubbles) {
+                const bubbleRect = bubble.getBoundingClientRect();
+                const bubbleX = bubbleRect.left;
+                const bubbleY = bubbleRect.top;
+                const distance = Math.sqrt(Math.pow(x - bubbleX, 2) + Math.pow(y - bubbleY, 2));
+                if (distance < size) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         const positionBubbleRandomly = (bubble) => {
-            const x = Math.random() * (gameContainer.clientWidth - bubbleSize);
-            const y = Math.random() * (gameContainer.clientHeight - hudHeight - bubbleSize);
+            let x, y;
+            let attempts = 0;
+            do {
+                x = Math.random() * (gameContainer.clientWidth - bubbleSize);
+                y = Math.random() * (gameContainer.clientHeight - hudHeight - bubbleSize);
+                attempts++;
+            } while (isOverlapping(x, y, bubbleSize, bubbles) && attempts < 100);
+            if (attempts >= 100) {
+                console.warn("Could not find non-overlapping position for bubble");
+            }
+            bubble.style.position = 'absolute';
             bubble.style.left = `${x}px`;
             bubble.style.top = `${y}px`;
         };
@@ -103,17 +131,32 @@ document.addEventListener("DOMContentLoaded", () => {
                                 endGame('lose');
                             }, 500);
                         } else {
-                            const bubbleImage = bubble.querySelector('img');
-                            const originalSrc = bubbleImage.src;
-                            bubbleImage.src = 'assets/sprite/bublepix2-error.png';
+                            const ctx = bubble.getContext('2d');
+                            ctx.clearRect(0, 0, bubbleSize, bubbleSize);
+                            const img = new Image();
+                            img.src = 'assets/sprite/bublepix2-error.png';
+                            img.onload = () => {
+                                ctx.drawImage(img, 0, 0, bubbleSize, bubbleSize);
+                                ctx.font = `${bubbleSize / 5}px Arial`;
+                                ctx.fillStyle = "white";
+                                ctx.textAlign = "center";
+                                ctx.textBaseline = "middle";
+                                ctx.fillText(number, bubbleSize / 2, bubbleSize / 2);
+                            };
                             const errorAudio = bubblePopErrorAudio.cloneNode(true);
                             errorAudio.play();
                             setTimeout(() => {
-                                bubbleImage.src = originalSrc;
-                            }, 1000);
-                            bubble.querySelector('.number-text').classList.add('error');
-                            setTimeout(() => {
-                                bubble.querySelector('.number-text').classList.remove('error');
+                                ctx.clearRect(0, 0, bubbleSize, bubbleSize);
+                                const originalImg = new Image();
+                                originalImg.src = 'assets/sprite/bublepix2.png';
+                                originalImg.onload = () => {
+                                    ctx.drawImage(originalImg, 0, 0, bubbleSize, bubbleSize);
+                                    ctx.font = `${bubbleSize / 5}px Arial`;
+                                    ctx.fillStyle = "white";
+                                    ctx.textAlign = "center";
+                                    ctx.textBaseline = "middle";
+                                    ctx.fillText(number, bubbleSize / 2, bubbleSize / 2);
+                                };
                             }, 1000);
                         }
                     }
@@ -145,16 +188,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function animateBubble(bubble) {
             function moveBubble() {
-                const duration = 500 + Math.random() * 1000;
-                const deltaX = Math.random() * 100 - 50;
-                const deltaY = Math.random() * 100 - 50;
+                const duration = 200 + Math.random() * 500; // Réduire la durée pour augmenter la vitesse
+                const deltaX = Math.random() * 200 - 100; // Augmenter le déplacement pour plus de dynamisme
+                const deltaY = Math.random() * 200 - 100; // Augmenter le déplacement pour plus de dynamisme
                 let newX = bubble.offsetLeft + deltaX;
                 let newY = bubble.offsetTop + deltaY;
+
+                // Check boundaries
                 if (newX < 0) newX = 0;
                 if (newX > gameContainer.clientWidth - bubbleSize) newX = gameContainer.clientWidth - bubbleSize;
                 if (newY < 0) newY = 0;
                 if (newY > gameContainer.clientHeight - hudHeight - bubbleSize) newY = gameContainer.clientHeight - hudHeight - bubbleSize;
-                bubble.style.transform = `translate(${newX - bubble.offsetLeft}px, ${newY - bubble.offsetTop}px)`;
+
+                // Check for overlapping
+                if (!isOverlapping(newX, newY, bubbleSize, bubbles)) {
+                    bubble.style.left = `${newX}px`;
+                    bubble.style.top = `${newY}px`;
+                }
+
                 setTimeout(moveBubble, duration);
             }
             moveBubble();
@@ -169,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 const numTeleports = Math.floor(Math.random() * (numBubbles / 2)) + 1; // Nombre de bulles à téléporter (entre 1 et la moitié des bulles)
                 for (let i = 0; i < numTeleports; i++) {
+                   
                     const bubbleIndex = Math.floor(Math.random() * numBubbles);
                     teleportBubble(bubbles[bubbleIndex]);
                 }
