@@ -157,7 +157,7 @@ body {
 #menu-container {
     width: 100%;
     height: 100vh;
-    background-image: url('assets/sprite/title-bubble.png');
+    background-image: url('../sprite/title-bubble.png');
     background-color: rgba(11, 179, 225, 0.821); /* Fond semi-transparent */
     position: fixed;
     top: 0;
@@ -211,7 +211,7 @@ body {
 }
 
 #start-button:hover {
-    background-color: #2980b9;
+    background-color: transparent;
 }
 
 #hud {
@@ -230,7 +230,7 @@ body {
 }
 
 #game-container {
-    background-image: url('assets/sprite/bg1.gif');
+    background-image: url('../sprite/bg1.gif');
     background-size: cover;
     position: relative;
     width: 100%;
