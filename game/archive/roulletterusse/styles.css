@@ -1,0 +1,31 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.table, .revolver {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Pour que l'image couvre toute la zone */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.revolver {
+  width: 30%; /* Ajustez la taille du revolver comme souhaité */
+  max-width: 2000px; /* Taille maximale du revolver */
+  z-index: 1; /* Pour s'assurer que le revolver est superposé à l'image de la table */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,493 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+
+  main {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 100vh;
+    width: 100vw;
+    background: #7741A3;
+    /*background: url(../assets/bgmachine.png) no-repeat;*/
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+
+    .dimmer {
+      position: absolute;
+      width: 100vw;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .congratulation {
+      position: absolute;
+      width: 100vw;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      pointer-events: none;
+
+
+      h1 {
+        color: #fff;
+        font-size: 3rem;
+        font-family: "Bespoke Stencil", sans-serif;
+        @media screen and (max-width: 400px) {
+          font-size: 1.5rem;
+        }
+      }
+
+      p {
+        color: #fff;
+        font-size: 1.5rem;
+        font-family: "Bespoke Stencil", sans-serif;
+        @media screen and (max-width: 400px) {
+          font-size: 1rem;
+        }
+        /* margin-bottom: 2rem; */
+      }
+    }
+
+    .machine {
+      position: absolute;
+      width: 32.81rem;
+      height: 43.75rem;
+      background-size: cover;
+      background-position: center;
+      @media screen and (max-width: 400px) {
+        transform: scale(0.85);
+        bottom: -3.3rem;
+      }
+
+      .machine-a-sous {
+        position: relative;
+        height: 43.75rem;
+        width: 32.81rem;
+        background: url(../assets/base.png) no-repeat;
+        background-size: cover;
+        background-position: center;
+        z-index: 50;
+      }
+
+      .machine-a-sous h1 {
+        position: absolute;
+        top: 24%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 2rem;
+        color: #0f09cd;
+        font-family: "Bespoke Stencil", sans-serif;
+
+        span {
+          color: #f89819;
+        }
+      }
+
+      .machine-a-sous .sous-logo {
+        position: absolute;
+        top: 12.3%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 1px solid white;
+      }
+
+      .sous {
+        position: absolute;
+        top: 61%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 19.37rem;
+        height: 14.12rem;
+        background: rgb(255, 255, 212);
+        color: #fff;
+        font-size: small;
+        display: flex;
+        z-index: 10;
+        
+
+        .degrade {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #571c1c;
+          background: linear-gradient(
+            0deg,
+            #571c1c 0%,
+            #571c1c26 30%,
+            #ffffff00 50%,
+            #ffffff00 40%,
+            #571c1c26 63%,
+            #571c1c 100%
+          );
+        }
+        .sous-part {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 3.5rem;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: transparent;
+          .icon {
+            position: relative;
+            top: -0.875rem;
+            flex-shrink: 0;
+            @media screen and (max-width: 400px) {
+              top: 0.005rem;
+            }
+          }
+          ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            padding: 0;
+            border: 1px solid red;
+
+            margin: 0px;
+            list-style: none;
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+          }
+        }
+        .part-1 {
+          .icon {
+            left: 8px;
+          }
+        }
+        .part-3 {
+          .icon {
+            right: 8px;
+          }
+        }
+      }
+
+      .buttons-green {
+        position: absolute;
+        width: 50%;
+        bottom: -5.2%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+  
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px; /* Ajoute de l'espacement autour de la modale */
+  /* Optionnel : pour un effet d'overlay */
+  box-sizing: border-box; /* Assure que le padding est inclus dans la taille totale */
+  z-index: 5000;
+  animation: zoomIn 0.5s ease-out;
+}
+@keyframes zoomIn {
+  from {
+      transform: scale(0.2);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+#complete-menu {
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limite la largeur maximale de la modale */
+  background: linear-gradient(135deg, #55146e, #0b926a);
+  border-radius: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box; /* Assure que le padding est inclus dans la taille totale */
+}
+
+.header {
+  font-size: 2em;
+  color: #d6da14;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header i {
+  margin-right: 10px;
+}
+
+.divider {
+  border-bottom: 1px solid #d6da14;
+  margin: 20px 0;
+}
+
+.level-info {
+  font-size: 24px;
+  color: #d6da14;
+  margin: 10px 0;
+}
+
+.score-info {
+  border: 1px solid transparent;
+  background-color: #c7841f;
+  border-radius: 20px;
+  font-size: 28px;
+  color: #ffffff;
+  margin: 10px 0;
+  padding: 10px;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.score-info img {
+  width: 24px;
+  height: auto;
+  margin-left: 1px;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  border: 1px solid red;
+}
+
+
+
+
+/* From Uiverse.io by Smit-Prajapati */ 
+.button {
+  background: none;
+  border: none;
+}
+
+.button .bloom-container {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  background: none;
+}
+
+.button .bloom-container .button-container-main {
+  width: 110px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  place-content: center;
+ /* border-right: 5px solid white;
+  border-left: 5px solid rgba(121, 22, 22, 0.147);*/
+  
+  transform: rotate(-45deg);
+  transition: all 0.5s ease-in-out;
+}
+
+.button .bloom-container .button-container-main .button-inner {
+  height: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: rgba(12, 12, 27, 0.5) -10px 5px 10px 0px;
+  transition: all 0.5s ease-in-out;
+}
+
+.button .bloom-container .button-container-main .button-inner .back {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(60deg, rgb(140, 56, 0) 0%, rgb(233, 58, 58) 100%);
+}
+
+.button .bloom-container .button-container-main .button-inner .back1 {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(60deg, rgb(0, 140, 0) 0%, rgb(58, 233, 102) 100%);
+}
+
+.button .bloom-container .button-container-main .button-inner .front {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: linear-gradient(60deg, rgb(0, 140, 0) 0%, rgb(58, 233, 102) 100%);
+  display: grid;
+  place-content: center;
+}
+
+
+.button .bloom-container .button-container-main .button-inner .front2 {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: linear-gradient(60deg, rgb(140, 56, 0) 0%, rgb(233, 58, 58) 100%);
+  display: grid;
+  place-content: center;
+}
+
+
+
+.button .bloom-container .button-container-main .button-inner .front .svg {
+  fill: #ffffff;
+  opacity: 0.5;
+  width: 30px;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  transition: all 0.2s ease-in;
+}
+
+.button .bloom-container .button-container-main .button-glass {
+  position: absolute;
+  inset: 0;
+  /*background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.888) 100%);*/
+  transform: translate(0%, -50%) rotate(0deg);
+  transform-origin: bottom center;
+  transition: all 0.5s ease-in-out;
+}
+
+.button .bloom-container .bloom {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  background: transparent;
+}
+
+.button .bloom-container .bloom1 {
+  top: 10px;
+  right: 20px;
+  box-shadow: transparent 0px 0px 10px 10px, transparent 0px 0px 20px 20px;
+}
+
+.button .bloom-container .bloom2 {
+  bottom: 10px;
+  left: 20px;
+  box-shadow: transparent;
+}
+
+.button .bloom-container:hover {
+  transform: scale(1.1);
+}
+
+.button .bloom-container:hover .button-container-main .button-glass {
+  transform: translate(0%, -40%);
+}
+
+.button .bloom-container:hover .button-container-main .button-inner .front .svg {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px white);
+}
+
+.button .bloom-container:active {
+  transform: scale(0.7);
+}
+
+.button .bloom-container:active .button-container-main .button-inner {
+  transform: scale(1.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.loader {
+    display: none;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #dbd534;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    position: fixed;
+    left: 45%;
+    
+    top: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

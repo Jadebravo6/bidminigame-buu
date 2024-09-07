@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Découper un Sprite Sheet</title>
+<style>
+  #spriteContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .sprite {
+    margin: 5px;
+    border: 1px solid #ccc;
+  }
+</style>
+</head>
+<body>
+  <input type="file" id="fileInput" accept="image/*">
+  <div id="spriteContainer"></div>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const spriteContainer = document.getElementById('spriteContainer');
+
+  fileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const image = new Image();
+      image.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0);
+
+        const spriteSheet = detectSpriteSheet(canvas);
+        const sprites = extractSprites(canvas, spriteSheet);
+
+        displaySprites(sprites);
+      }
+      image.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  function detectSpriteSheet(canvas) {
+    // Implémentez votre algorithme de détection de sprite sheet ici
+    // Cela peut impliquer l'analyse des couleurs, des motifs ou des dimensions de l'image
+    // Retournez les coordonnées des sprites sous forme d'objet {x, y, width, height}
+    // Pour cet exemple, je vais simplement renvoyer la taille de l'image entière
+    return { x: 0, y: 0, width: canvas.width, height: canvas.height };
+  }
+
+  function extractSprites(canvas, spriteSheet) {
+    const sprites = [];
+    const { x, y, width, height } = spriteSheet;
+    const spriteWidth = 32; // Largeur du sprite (à adapter selon votre sprite sheet)
+    const spriteHeight = 32; // Hauteur du sprite (à adapter selon votre sprite sheet)
+
+    for (let i = y; i < height; i += spriteHeight) {
+      for (let j = x; j < width; j += spriteWidth) {
+        const spriteCanvas = document.createElement('canvas');
+        spriteCanvas.width = spriteWidth;
+        spriteCanvas.height = spriteHeight;
+        const spriteCtx = spriteCanvas.getContext('2d');
+        spriteCtx.drawImage(canvas, j, i, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+        sprites.push(spriteCanvas.toDataURL());
+      }
+    }
+
+    return sprites;
+  }
+
+  function displaySprites(sprites) {
+    spriteContainer.innerHTML = '';
+    sprites.forEach((spriteDataUrl) => {
+      const sprite = document.createElement('img');
+      sprite.classList.add('sprite');
+      sprite.src = spriteDataUrl;
+      spriteContainer.appendChild(sprite);
+    });
+  }
+</script>
+</body>
+</html>

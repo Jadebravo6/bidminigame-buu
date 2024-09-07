@@ -1,0 +1,231 @@
+html, body, form {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  color: #333;
+  font-size: 20px;
+  perspective: 1000px;
+}
+
+h1, h2 {
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}
+
+header {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  padding: 0.2rem 0 0;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.5rem;
+  max-width: 30rem;
+  margin: 0 auto 0.5rem;
+}
+
+button {
+  background: #fff;
+  border: solid 1px currentColor;
+  font-size: 1rem;
+  padding: 0.6rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+input {
+  position: absolute;
+  right: 100%;
+}
+
+label {
+  position: fixed;
+  text-indent: -100%;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  content: "";
+  width: 80%;
+  height: 10px;
+  background: #eee;
+  display: block;
+  border: solid 3px currentColor;
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0);
+  transition: all 300ms ease-out;
+  border-radius: 50%;
+}
+
+/* 
+	This is the reason why Sass is being used, everything else
+	is standard CSS
+*/
+label:nth-of-type(1) {
+  transform: translate3d(-50%, -50%, 0) rotate(315deg);
+  margin: 2%;
+  z-index: 59;
+}
+
+label:nth-of-type(2) {
+  transform: translate3d(-50%, -50%, 0) rotate(176deg);
+  margin: 2%;
+  z-index: 58;
+}
+
+label:nth-of-type(3) {
+  transform: translate3d(-50%, -50%, 0) rotate(303deg);
+  margin: 5%;
+  z-index: 57;
+}
+
+label:nth-of-type(4) {
+  transform: translate3d(-50%, -50%, 0) rotate(320deg);
+  margin: 7%;
+  z-index: 56;
+}
+
+label:nth-of-type(5) {
+  transform: translate3d(-50%, -50%, 0) rotate(342deg);
+  margin: 5%;
+  z-index: 55;
+}
+
+label:nth-of-type(6) {
+  transform: translate3d(-50%, -50%, 0) rotate(13deg);
+  margin: 2%;
+  z-index: 54;
+}
+
+label:nth-of-type(7) {
+  transform: translate3d(-50%, -50%, 0) rotate(333deg);
+  margin: 2%;
+  z-index: 53;
+}
+
+label:nth-of-type(8) {
+  transform: translate3d(-50%, -50%, 0) rotate(152deg);
+  margin: 4%;
+  z-index: 52;
+}
+
+label:nth-of-type(9) {
+  transform: translate3d(-50%, -50%, 0) rotate(35deg);
+  margin: 6%;
+  z-index: 51;
+}
+
+label:nth-of-type(10) {
+  transform: translate3d(-50%, -50%, 0) rotate(156deg);
+  margin: 9%;
+  z-index: 50;
+}
+
+label:nth-of-type(11) {
+  transform: translate3d(-50%, -50%, 0) rotate(150deg);
+  margin: 0%;
+  z-index: 49;
+}
+
+label:nth-of-type(12) {
+  transform: translate3d(-50%, -50%, 0) rotate(194deg);
+  margin: 2%;
+  z-index: 48;
+}
+
+label:nth-of-type(13) {
+  transform: translate3d(-50%, -50%, 0) rotate(95deg);
+  margin: 8%;
+  z-index: 47;
+}
+
+label:nth-of-type(14) {
+  transform: translate3d(-50%, -50%, 0) rotate(301deg);
+  margin: 6%;
+  z-index: 46;
+}
+
+label:nth-of-type(15) {
+  transform: translate3d(-50%, -50%, 0) rotate(46deg);
+  margin: 2%;
+  z-index: 45;
+}
+
+label:nth-of-type(16) {
+  transform: translate3d(-50%, -50%, 0) rotate(356deg);
+  margin: 2%;
+  z-index: 44;
+}
+
+label:nth-of-type(17) {
+  transform: translate3d(-50%, -50%, 0) rotate(234deg);
+  margin: 2%;
+  z-index: 43;
+}
+
+label:nth-of-type(18) {
+  transform: translate3d(-50%, -50%, 0) rotate(39deg);
+  margin: 0%;
+  z-index: 42;
+}
+
+label:nth-of-type(19) {
+  transform: translate3d(-50%, -50%, 0) rotate(19deg);
+  margin: 3%;
+  z-index: 41;
+}
+
+label:nth-of-type(20) {
+  transform: translate3d(-50%, -50%, 0) rotate(332deg);
+  margin: 5%;
+  z-index: 40;
+}
+
+input:first-of-type:checked + label,
+input:checked + label + input:checked + label {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+input:not(:checked) ~ input:checked ~ .gameover,
+input:checked + label + input:checked + label + .winner {
+  transform: translate3d(0, 0, 0);
+}
+
+.message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: translate3d(-100%, 0, 0);
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 200;
+}
+
+.message-content {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}

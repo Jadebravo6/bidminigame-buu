@@ -1,0 +1,169 @@
+/* disposition des boutons */
+.directional-buttons {
+  /* Définir la taille de la grille */
+  /* D'autres éléments en dépendent ! Changez à vos risques et périls ! */
+  width: 16rem;
+  height: 16rem;
+  /* afficher les boutons dans une grille */
+  display: grid;
+  /* laisser un petit espace entre les colonnes/lignes */
+  grid-gap: 0.5rem;
+  /* définir une grille 3 x 3 avec la colonne/ligne centrale plus grande */
+  grid-template-columns: 45fr 60fr 45fr;
+  grid-template-rows: 45fr 60fr 45fr;
+  /* nommer les cellules dans la grille */
+  grid-template-areas: "....  up  ....."
+                       "left  ..  right"
+                       ".... down .....";    
+}
+
+/* cache le texte des boutons */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; 
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* bouton de base */
+.direction-button {
+  /* les couleurs du bouton */
+  color: rgb(50, 55, 50);
+  /* comme il n'y a pas de texte, on peut utiliser la valeur de couleur pour l'arrière-plan */
+  background: currentcolor;
+  /* efface les styles de bouton par défaut */
+  border: none;
+  /* assure que les triangles sont déplacés par rapport au bouton */
+  position: relative;
+}
+
+/* le triangle extérieur superposé 
+ * en réalité, c'est juste un carré rotatif
+ */
+.direction-button:before {
+  /* afficher le triangle */
+  display: block;
+  content: "";
+  /* permettre au triangle d'être déplacé relativement au bouton */
+  position: absolute;
+  /* approximativement, rend la diagonale de la bonne taille */
+  width: 4.25rem;
+  height: 4.25rem;
+  /* tourner le carré (pour ressembler à un triangle) */
+  transform: rotate(45deg);
+  /* utiliser la valeur de couleur actuelle pour l'arrière-plan pour correspondre au bouton */
+  background: currentcolor;
+}
+
+/* le triangle de direction interne */
+.direction-button:after {
+  /* afficher le triangle */
+  display: block;
+  content: "";
+  /* permettre au triangle d'être déplacé relativement au bouton */
+  position: absolute;
+  /* même astuce de triangle basée sur la bordure qu'auparavant */
+  border: 2rem solide transparent;
+  /* utiliser la valeur de couleur pour la couleur de la bordure pour le modifier plus facilement */
+  color: rgba(255, 250, 250, 0.6);
+}
+
+/* lorsque le bouton est survolé */
+.direction-button:hover {
+  /* changer la couleur du bouton */
+  color: rgb(85,55,55);
+}
+
+/* lorsque le bouton est enfoncé */
+.direction-button:active:after {
+  /* changer la couleur du triangle intérieur ! */
+  color: rgb(255, 152, 152);
+}
+
+/* styles individuels des boutons */
+.up {
+  /* place le bouton dans la cellule de grille nommée "up" */
+  grid-area: up;
+  /* courbe uniquement les coins extérieurs */
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.up:before {
+  /* centre le triangle superposé horizontalement */
+  left: calc(50% - 2.125rem);
+  /* le positionne pour qu'il se superpose juste correctement */
+  bottom: -2.125rem;
+}
+.up:after {
+  /* utilise la couleur de fond pour la couleur du bas du triangle superposé */
+  border-bottom-color: currentcolor;
+  /* centre le triangle intérieur horizontalement */
+  left: calc(50% - 2rem);
+  /* le positionne juste correctement */
+  top: -1rem;
+}
+
+.left {
+  /* place le bouton dans la cellule de grille nommée "left" */
+  grid-area: left;
+  /* courbe uniquement les coins extérieurs */
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+.left:before {
+  /* le positionne pour qu'il se superpose juste correctement */
+  right: -2.125rem;
+  /* centre le triangle superposé verticalement */
+  top: calc(50% - 2.125rem);
+}
+.left:after {
+  /* utilise la couleur de bordure pour la couleur de la bordure droite du triangle intérieur */
+  border-right-color: currentcolor;
+  /* centre le triangle intérieur verticalement */
+  top: calc(50% - 2rem);
+  /* le positionne juste correctement */
+  left: -1rem;
+}
+
+.right {
+  /* place le bouton dans la cellule de grille nommée "right" */
+  grid-area: right;
+  /* courbe uniquement les coins extérieurs */
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.right:before {
+  /* le positionne pour qu'il se superpose juste correctement */
+  left: -2.125rem;
+  /* centre le triangle superposé verticalement */
+  top: calc(50% - 2.125rem);
+}
+.right:after {
+  /* utilise la couleur de bordure pour la couleur de la bordure gauche du triangle intérieur */
+  border-left-color: currentcolor;
+  /* centre le triangle intérieur verticalement */
+  top: calc(50% - 2rem);
+  /* le positionne juste correctement */
+  right: -1rem;
+}
+
+.down {
+  /* place le bouton dans la cellule de grille nommée "down" */
+  grid-area: down;
+  /* courbe uniquement les coins extérieurs */
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.down:before {
+  /* centre le triangle superposé horizontalement */
+  left: calc(50% - 2.125rem);
+  /* le positionne pour qu'il se superpose juste correctement */
+  top: -2.125rem;
+}
+.down:after {
+  /* utilise la couleur de fond pour la couleur du haut du triangle superposé */
+  border-top-color: currentcolor;
+  /* centre le triangle intérieur horizontalement */
+  left: calc(50% - 2rem);
+  /* le positionne juste correctement */
+  bottom: -1rem;
+}

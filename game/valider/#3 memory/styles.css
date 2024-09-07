@@ -1,0 +1,183 @@
+/* Ajoutez le CSS de la fenêtre modale ici */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif; /* Ajout d'une police de caractères générale */
+  touch-action: none;
+  background: linear-gradient(to bottom, #00bfff, #1e90ff);
+  -webkit-tap-highlight-color:  rgba(209, 41, 41, 0); 
+  background-size: cover;
+  
+
+}
+
+
+.memory-game {
+  text-align: center;
+}
+.heart{
+
+  position: relative;
+  bottom: 100px;
+
+}
+.grid {
+display: grid;
+grid-template-columns: repeat(4, 75px); /* Taille des colonnes */
+gap: 10px; /* Espacement de 10 pixels entre les éléments */
+max-width: 60%; /* Ajustez la largeur maximale selon vos besoins */
+margin: 20px; /* Centrer la grille en utilisant la marge */
+
+}
+
+.card {
+width: 75px; /* Réduire la largeur des cartes */
+height: 75px; /* Réduire la hauteur des cartes */
+background-color: rgb(236, 203, 16);
+border-radius: 25px;
+cursor: pointer;
+position: relative;
+perspective: 1000px;
+display: flex;
+
+justify-content: center;
+align-items: center;
+transition: background-color 0.5s;
+animation: float 3s ease-in-out infinite; /* Animation flottante continue */
+}
+
+.card i {
+
+  font-size: 50px;
+  color: transparent; /* Couleur transparente par défaut */
+  transition: color 0.5s;
+}
+
+.card.flipped {
+  background-color: rgb(212, 213, 219); /* Changement de couleur de fond lorsqu'une carte est retournée */
+}
+
+.card.flipped i {
+  color: inherit; /* Couleur de l'icône visible lorsque la carte est retournée */
+  animation: flip 0.5s forwards;
+  z-index: 1; /* Assure que l'icône est au-dessus du fond du carré */
+}
+
+.card.has-match {
+  background-color: rgb(40, 211, 40);
+}
+
+/* Animation pour l'effet flottant */
+@keyframes float {
+0% {
+  transform: translateY(0);
+}
+50% {
+  transform: translateY(-10px);
+}
+100% {
+  transform: translateY(0);
+}
+}
+
+/* Animation pour le flip */
+@keyframes flip {
+  from {
+      transform: rotateY(0deg);
+  }
+  to {
+      transform: rotateY(180deg);
+  }
+}
+
+/* Style pour le timer */
+#timer {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#start-btn {
+font-size: 24px;
+padding: 15px 30px;
+margin-top: 20px; /* Espacement vers le haut */
+margin-bottom: 20px; /* Espacement vers le bas */
+}
+
+/* Styles pour la fenêtre modale */
+.modal {
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+background-color: #a22424;
+margin: 15% auto;
+padding: 20px;
+border: 1px solid #888;
+border-radius: 10px;
+max-width: 300px;
+}
+
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+#modal-ok-btn {
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+#modal-ok-btn:hover {
+background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

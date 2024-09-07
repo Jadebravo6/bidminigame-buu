@@ -1,0 +1,306 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #3498db; /* Couleur de fond bleue pour simuler l'océan */
+}
+
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.controls button:hover {
+  background-color: #45a049;
+}
+
+.controls button:focus {
+  outline: none;
+}
+#fire-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* Style du bouton pour activer/désactiver les capteurs de mouvement */
+.motion-btn {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controls button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.avion {
+  width: 150px; /* Largeur de l'avion */
+
+  height: 150px; /* Hauteur de l'avion */
+  background-image: url('assets/plane/plane.png'); /* Chemin vers l'image de l'avion */
+  background-size: cover; /* Ajuste la taille de l'image */
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg); /* Rotation pour pointer vers le haut */
+  z-index: 2; /* Pour afficher l'avion au-dessus des nuages */
+}
+
+/*.avion-moving {
+  /* Styles pour l'image d'avion en mouvement */
+  /*.background-image: url('assets/plane/f14speed.png');
+  transform: rotate(0deg);
+}*/
+
+.projectile {
+  width: 50px;
+  height: 50px;
+  background-image: url('assets/plane/fire2.gif');
+  background-size: cover;
+  transform: translateX(-50%) rotate(90deg); /* Rotation pour pointer vers le haut */
+  position: absolute;
+  z-index: 3; /* Mettre les projectiles au-dessus des nuages */
+}
+
+
+
+.enemy {
+  width: 150px;
+  height: 150px;
+  background-image: url('assets/plane/enemy3.png');
+  background-size: cover; /* Couleur du rectangle d'ennemi */
+  position: absolute;
+  top: 0; /* Position initiale en haut */
+  left: 50%; /* Position horizontale initiale (au milieu) */
+  transform: translateX(-50%) rotate(0deg); /* Centrer horizontalement */
+  z-index: 1; /* Mettre l'ennemi derrière l'avion */
+}
+
+
+
+
+.cloud {
+  width: 200px; /* Largeur des nuages */
+  height: 100px; /* Hauteur des nuages */
+
+  position: absolute;
+  animation: cloudAnimation 10s linear infinite; /* Animation des nuages qui défilent */
+}
+
+.cloud1 {
+  background-image: url('assets/sky/cloud1.png');
+  background-size: cover;
+}
+
+.cloud2 {
+  background-image: url('assets/sky/cloud2.png');
+  background-size: cover;
+}
+
+.cloud3 {
+  background-image: url('assets/sky/cloud3.png');
+  background-size: cover;
+}
+
+/* Ajouter des classes pour les autres images de nuage */
+.cloud4 {
+  background-image: url('assets/sky/cloud1.png');
+  background-size: cover;
+}
+
+.cloud5 {
+  background-image: url('assets/sky/cloud2.png');
+  background-size: cover;
+}
+
+.cloud6 {
+  background-image: url('assets/sky/cloud3.png');
+  background-size: cover;
+}
+.cloud7 {
+  background-image: url('assets/sky/cloud1.png');
+  background-size: cover;
+}
+
+.cloud8 {
+  background-image: url('assets/sky/cloud2.png');
+  background-size: cover;
+}
+
+.cloud9 {
+  background-image: url('assets/sky/cloud3.png');
+  background-size: cover;
+}
+
+.barre-vie {
+  position: absolute;
+  top: 20px; /* Ajustez la position verticale selon vos besoins */
+  left: 20px; /* Ajustez la position horizontale selon vos besoins */
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height: 40px; /* Ajustez la hauteur selon vos besoins */
+  background-color: #333; /* Couleur de fond */
+  border-radius: 20px; /* Coins arrondis */
+  border: 2px solid #fff; /* Bordure blanche */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Ombre douce */
+  z-index: 3; /* Valeur de z-index supérieure aux nuages et à l'avion */
+}
+
+.vie {
+  height: 100%; /* La hauteur de la barre de vie doit remplir la barre */
+  background: linear-gradient(to right, #ff0000, #ff9900); /* Dégradé de couleur pour la barre de vie */
+  border-radius: 20px; /* Coins arrondis */
+}
+
+
+
+
+@keyframes blinkAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blink {
+  animation: blinkAnimation 1s infinite;
+}
+
+@keyframes disappearAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.disappear {
+  animation: disappearAnimation 0.5s forwards;
+}
+
+.enemy.disappear {
+  animation: disappear 0.5s ease-in-out forwards; /* L'animation ne doit jouer qu'une seule fois */
+}
+
+
+/* Animation pour les nuages */
+@keyframes cloudAnimation {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(1200%);
+  }
+}
+.cloud:nth-child(1) {
+  top: -20%;
+  left: 20%;
+}
+
+.cloud:nth-child(2) {
+  top: -10%;
+  left: 50%;
+}
+
+.cloud:nth-child(3) {
+  top: -15%;
+  left: 80%;
+}
+
+/* Ajouter des positions pour les autres nuages */
+.cloud:nth-child(4) {
+  top: -30%;
+  left: calc(20% + 80% * random());
+}
+
+.cloud:nth-child(5) {
+  top: -15%;
+  left: calc(20% + 80% * random());
+}
+
+.cloud:nth-child(6) {
+  top: -25%;
+  left: calc(20% + 80% * random());
+}
+
+
+.cloud:nth-child(7) {
+  top: -15%;
+  left: calc(20% + 80% * random());
+}
+
+.cloud:nth-child(8) {
+  top: -15%;
+  left: 80%;
+}
+.cloud:nth-child(9) {
+  top: -25%;
+  left: calc(20% + 80% * random());
+}
+/* Ajouter des positions pour les autres nuages selon vos besoins */
+.health-bar {
+  width: 200px; /* Largeur de la barre de vie */
+  height: 20px; /* Hauteur de la barre de vie */
+  background-color: #f2f2f2; /* Couleur de fond de la barre de vie */
+  border-radius: 10px; /* Bord arrondi */
+  border: 1px solid #ccc; /* Bordure */
+  overflow: hidden; /* Masquer le débordement */
+}
+
+.health-bar-fill {
+  height: 100%; /* Hauteur de remplissage de la barre de vie */
+  background-color: #4caf50; /* Couleur de remplissage de la barre de vie */
+  transition: width 0.3s ease; /* Transition fluide de la largeur */
+}
+
+.health-display {
+  font-family: Arial, sans-serif; /* Police de caractères */
+  font-size: 16px; /* Taille de la police */
+  color: #333; /* Couleur du texte */
+  margin-bottom: 5px; /* Marge en bas */
+}

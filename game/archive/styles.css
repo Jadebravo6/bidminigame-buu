@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .game-thumbnail {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .game-thumbnail img {
+    width: 200px;
+    height: 150px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .game-thumbnail p {
+    margin-top: 10px;
+  }
+  
+  .game-thumbnail:hover {
+    transform: scale(1.05);
+  }
+  

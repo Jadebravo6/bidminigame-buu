@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slot Machine v1.9.0</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/flaticon_rr.min.css" />
+    <link rel="stylesheet" href="css/flaticon_rs.min.css" />
+    <link href="https://api.fontshare.com/v2/css?f[]=bespoke-stencil@300,700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+
+  <body>
+    <main>
+      <div class="machine">
+        <div class="machine-a-sous">
+          <h1>Bider <span>Clic</span></h1>
+          <img class="sous-logo" src="assets/avatar.jpeg" title="sous" alt="sous"></img>
+          <div class="buttons-green">
+            <button type="button" class="btn-class-name btn-stop" id ="btn-example1">
+              <span class="back"></span>
+              <span class="front">Play</span>
+            </button>
+    
+          </div>
+        </div>
+        <div class="sous" id="example1">
+          <div class="part-1 sous-part">
+            <ul class="icon-list"></ul>
+          </div>
+          <div class="part-2 sous-part">
+            <ul class="icon-list"></ul>
+          </div>
+          <div class="part-3 sous-part">
+            <ul class="icon-list"></ul>
+          </div>
+          <div class="degrade"></div>
+        </div>
+      </div>
+      <div class="congratulation animate__animated" id="congrat">
+
+        <div id="loader" class="loader"></div>
+
+        <!-- Modal -->
+    
+        
+        <h1>Congratulation</h1>
+        <p id="congratulationText">You won</p>
+        <!-- <button type="button" class="reload" onclick="location.reload()">Play Again</button> -->
+      </div>
+
+
+      <div id="myModal" class="modal">
+        <div id="complete-menu">
+            <h1 class="header">
+                <i class="trophy" style="color: #d6da14;"></i> YOU WIN !!!!
+            </h1>
+            <div class="divider"></div>
+            <div>
+                <p class="level-info">Bid Bonus won</p>
+                <p class="score-info">
+                    <img src="assets/2.png" alt="Coin Icon">
+                    100,00
+                </p>
+                
+                <div class="buttons">
+                  <button id="reloadButton" class="button">
+                        <div class="bloom-container">
+                            <div class="button-container-main">
+                                <div class="button-inner">
+                                    <div class="back1"></div>
+                                    <div class="front">     
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256" style="fill:#000000;">
+                                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                <g transform="scale(5.12,5.12)">
+                                                    <path d="M25,2c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175c10.51712,0 19,8.48288 19,19c0,10.51712 -8.48288,19 -19,19c-10.51712,0 -19,-8.48288 -19,-19c0,-5.4758 2.30802,-10.39189 6,-13.85547v3.85547c-0.0102,0.72127 0.36875,1.39216 0.99175,1.75578c0.623,0.36361 1.39351,0.36361 2.01651,0c0.623,-0.36361 1.00195,-1.0345 0.99175,-1.75578v-11h-11c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h4.52539c-4.61869,4.20948 -7.52539,10.27232 -7.52539,17c0,12.67888 10.32112,23 23,23c12.67888,0 23,-10.32112 23,-23c0,-12.67888 -10.32112,-23 -23,-23z"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="button-glass">
+                                    <div class="back"></div>
+                                    <div class="front"></div>
+                                </div>
+                            </div>
+                            <div class="bloom bloom1"></div>
+                            <div class="bloom bloom2"></div>
+                        </div>
+                    </button>
+
+                    <button id="homeButton" class="button">
+                        <div class="bloom-container">
+                            <div class="button-container-main">
+                                <div class="button-inner">
+                                    <div class="back"></div>
+                                    <div class="front2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 256 256" style="fill:#000000; transform: rotate(0deg);">
+                                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                                <g transform="scale(10.66667,10.66667)">
+                                                    <path d="M12,2.09961l-11,9.90039h3v9h7v-6h2v6h7v-9h3zM12,4.79102l6,5.40039v0.80859v8h-3v-6h-6v6h-3v-8.80859z"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="button-glass">
+                                    <div class="back"></div>
+                                    <div class="front"></div>
+                                </div>
+                            </div>
+                            <div class="bloom bloom1"></div>
+                            <div class="bloom bloom2"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="dimmer"></div>
+    </main>
+    
+    <!-- Inclure d'abord jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/randomIconsAlgo.js"></script>
+  
+
+    
+  </body>
+</html>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
