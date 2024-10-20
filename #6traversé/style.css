@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2em;
+  color: white;
+  background-color: black; /* Ajout d'un fond noir pour l'esthétique */
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 3px 5px 0px 0px rgba(0,0,0,0.75);
+}
+
+#counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#end {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+#end button {
+  background-color: red;
+  padding: 20px 50px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+#controlls {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#controlls div {
+  display: grid;
+  grid-template-columns: 50px 50px 50px; /* Trois colonnes */
+  grid-template-rows: 50px 50px 50px;    /* Trois lignes */
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Placement des boutons */
+#forward {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#backward {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#controlls button {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Amélioration du style des boutons au survol */
+#controlls button:hover {
+  background-color: lightgray;
+  transition: background-color 0.3s;
+}

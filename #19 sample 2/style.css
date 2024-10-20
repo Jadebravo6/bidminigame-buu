@@ -1,0 +1,12 @@
+body {
+    margin: 0;  /* Supprime la marge par défaut */
+    display: flex;  /* Utilise flexbox pour centrer le contenu */
+    justify-content: center;  /* Centre horizontalement */
+    align-items: center;  /* Centre verticalement */
+    height: 100vh;  /* Remplit la hauteur de la fenêtre */
+    background-color: white;  /* Fond blanc */
+}
+
+canvas {
+    display: block;  /* Supprime les espaces en dessous du canevas */
+}

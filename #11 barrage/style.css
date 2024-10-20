@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  background: #050135;
+  width: 100vw;
+  height: 100svh;
+  font-family: "Ubuntu Mono", monospace;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #050135;
+  border-radius: 30px;
+  border: solid transparent 10px;
+  position: relative; /* Important for menu positioning */
+}
+
+#game {
+  user-select: none;
+  z-index: 1;
+}
+
+#menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #050135;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  z-index: 2; /* Above the game canvas */
+}
+
+#menu h1 {
+  color: #61dafb; /* Light blue color for the title */
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+#menu p {
+  color: white;
+  margin-bottom: 20px;
+}
+
+#menu button {
+  background: #61dafb;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  font-size: 1em;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#menu button:hover {
+  background: #55c1e5; /* Lighter blue on hover */
+}
+
+#score {
+  transform: translateY(150px);
+  position: absolute;
+  font-size: 72px;
+  color: #ffbc63;
+  text-align: center;
+  user-select: none;
+}
+
+#high-score {
+  position: absolute;
+  transform: translateY(10px);
+  font-size: 24px;
+  color: #ffbc63;
+  opacity: 0;
+  user-select: none;
+}
+
+#slider {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  fill: #ffbc63;
+  width: 240px;
+  height: 30px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+#share,
+#sound {
+  height: 30px;
+}
+
+#replay {
+  height: 50px;
+}
+
+#share,
+#sound,
+#replay {
+  scale: 0;
+  cursor: pointer;
+}
+
+#tip {
+  font-size: 14px;
+  color: #ffbc63;
+  user-select: none;
+}
+
+
+.bid{
+  color: #ffbc63;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="canves">
+        <div id="score-panel">
+            <div id="timer">00:00</div>
+        </div>
+        <div class="tower"></div>
+        <div class="tower"></div>
+        <div class="tower"></div>
+        <button id="quit-button" class="btn"><i class="fa fa-times"></i></button>
+        <button class="restart"><i class="fa fa-refresh"></i></button>
+    </div>
+
+    <!-- Modal d'instructions -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="info-close-btn">&times;</span>
+            <h2>How to Play</h2>
+            <p><strong>Objective:</strong> Move all the disks from the source tower to the destination tower while following the rules below.</p>
+            <p><strong>Rules:</strong></p>
+            <ul>
+                <li>Only one disk can be moved at a time.</li>
+                <li>You can only place a disk on top of a larger disk or on an empty tower.</li>
+                <li>There are three towers: the source, the destination, and an auxiliary tower.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal de début -->
+    <div id="start-modal" class="modal" style="display: block;">
+        <div id="modal-content" class="modal-content" style="display: none;">
+            <h2><img src="icon.png" alt="" class="icon">Hanoi <div class="bid">BID</div></h2>
+            <div class="main-button" id="play-button">
+                <i class="fa fa-play"></i>
+            </div>
+            <div class="option-buttons">
+                <div class="option-button" id="info-button">
+                    <i class="fa fa-info-circle"></i>
+                </div>
+                <div class="option-button">
+                    <i class="fa fa-home"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Sélection des niveaux, initialement cachée -->
+        <div class="level-selection" style="display: none;">
+            <h2>Choose Level</h2>
+            <p class="description">Select a level to start your adventure!</p>
+            <div class="levels">
+                <button class="level-button" data-level="4" data-difficulty="easy">easy</button>
+                <button class="level-button" data-level="5" data-difficulty="medium">medium</button>
+                <button class="level-button" data-level="6" data-difficulty="high">high</button>
+                <button class="level-button" data-level="8" data-difficulty="hard">hard</button> <!-- Corrigé ici -->
+            </div>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal-win">
+        <div class="modal-content-win">
+            <img src="win.png" class="image-win" alt="Victory Image">
+            <div class="win-text">
+                <p class="highlight"> You win !!!!</p>
+                <div class="text-background">
+                    <p> <img src="2.png" class="coin"><span class="highlight">50 +</span> </p>
+                </div>
+            </div>
+            <button class="home-btn">
+                <i class="fa fa-home home-icon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Restart Modal -->
+    <div id="restart-modal" class="modal-restart">
+        <div class="modal-content-restart">
+            <h2>Hoops!!</h2>
+            <p>Restart game?</p>
+            <button class="modal-confirm" id="confirm-restart">Confirm</button>
+            <button class="modal-cancel" id="home-btn">Home</button>
+        </div>
+        
+    </div>
+
+    <script src="script.js" defer></script> <!-- Place ici pour exécuter après le chargement HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</body>
+</html>
