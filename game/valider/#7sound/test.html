@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation de Chiffre</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .number-container {
+            position: relative;
+            font-size: 5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .number {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .number.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .number.float {
+            animation: floatDown 2s ease-out forwards;
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+
+        .show-button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .show-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="number-container" id="number-container">
+        <div class="number" id="number"></div>
+    </div>
+    <button class="show-button" id="show-button">Afficher Chiffre</button>
+
+    <script>
+        // Fonction pour afficher le chiffre avec animation
+        function showNumber(number) {
+            const numberElement = document.getElementById('number');
+            numberElement.textContent = number;
+            
+            // Ajoute les classes pour déclencher l'animation
+            numberElement.classList.add('show');
+            
+            // Retire les classes après l'animation pour permettre de réutiliser l'effet
+            numberElement.addEventListener('animationend', () => {
+                numberElement.classList.remove('show');
+                numberElement.classList.add('float');
+            }, { once: true });
+            
+            // Réinitialise l'animation pour la prochaine fois
+            numberElement.addEventListener('animationend', () => {
+                numberElement.classList.remove('float');
+            }, { once: true });
+        }
+
+        // Référence au bouton
+        const showButton = document.getElementById('show-button');
+
+        // Ajouter un événement de clic au bouton
+        showButton.addEventListener('click', () => {
+            // Exemple : affiche le chiffre 7 avec l'animation
+            showNumber(7);
+        });
+    </script>
+</body>
+</html>

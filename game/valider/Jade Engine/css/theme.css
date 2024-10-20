@@ -1,0 +1,23 @@
+/* theme.css */
+
+/* Définition des variables de thème */
+:root {
+    --primary-color: #ff0000;
+    --secondary-color: #00ff00;
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
+
+/* Application des variables de thème */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.game-element {
+    background-color: var(--primary-color);
+}
+
+.game-element.secondary {
+    background-color: var(--secondary-color);
+}

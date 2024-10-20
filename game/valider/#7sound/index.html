@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Effects with Sound</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f5;
+        }
+
+        .button {
+            cursor: pointer;
+            font-size: large;
+            font-family: inherit;
+            font-weight: bold;
+            color: #0011ff;
+            background-color: #f8f8fd;
+            padding: 0.8em 2.2em;
+            border-radius: 50em;
+            border: 6px solid #8b93f8;
+            box-shadow: 0px 8px #1f35ff;
+            margin: 10px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button:active {
+            position: relative;
+            top: 8px;
+            border: 6px solid #646fff;
+            box-shadow: 0px 0px;
+        }
+
+        .player-list {
+            margin-top: 20px;
+        }
+
+        .player {
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button class="button" id="shieldButton">🛡️</button>
+        <button class="button" id="lightningButton">⚡</button>
+        <button class="button" id="kingButton">👑</button>
+        <button class="button" id="fingerButton">👉</button>
+    </div>
+
+    <div class="player-list">
+        <div class="player" id="player1">Joueur 1</div>
+        <div class="player" id="player2">Joueur 2</div>
+        <div class="player" id="player3">Joueur 3</div>
+        <div class="player" id="player4">Joueur 4</div>
+    </div>
+
+    <script>
+      var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+function loadSound(url) {
+    return fetch(url)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer));
+}
+
+function playSound(buffer) {
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start(0);
+}
+
+let shieldSound, lightningSound, kingSound, fingerSound;
+
+Promise.all([
+    loadSound('sounds/shield.wav').then(buffer => shieldSound = buffer),
+    loadSound('sounds/lightning.wav').then(buffer => lightningSound = buffer),
+    loadSound('sounds/king.wav').then(buffer => kingSound = buffer),
+    loadSound('sounds/finger.wav').then(buffer => fingerSound = buffer)
+]).then(() => {
+    function highlightPlayer() {
+        const players = document.querySelectorAll('.player');
+        players.forEach(player => player.classList.remove('highlight'));
+        if (players.length > 0) {
+            players[0].classList.add('highlight');
+        }
+    }
+
+    document.getElementById('shieldButton').addEventListener('click', function() {
+        if (shieldSound) playSound(shieldSound);
+        highlightPlayer();
+    });
+
+    document.getElementById('lightningButton').addEventListener('click', function() {
+        if (lightningSound) playSound(lightningSound);
+        highlightPlayer();
+    });
+
+    document.getElementById('kingButton').addEventListener('click', function() {
+        if (kingSound) playSound(kingSound);
+        highlightPlayer();
+    });
+
+    document.getElementById('fingerButton').addEventListener('click', function() {
+        if (fingerSound) playSound(fingerSound);
+        highlightPlayer();
+    });
+});
+
+    </script>
+</body>
+</html>

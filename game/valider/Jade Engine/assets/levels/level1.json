@@ -1,0 +1,8 @@
+{
+    "level": 1,
+    "entities": [
+        { "type": "player", "x": 50, "y": 200, "width": 50, "height": 50 },
+        { "type": "enemy", "x": 300, "y": 200, "width": 50, "height": 50 },
+        { "type": "platform", "x": 0, "y": 250, "width": 400, "height": 20 }
+    ]
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Game</title>
+    <link rel="stylesheet" href="/assets/styles/styles.css">
+</head>
+<body>
+    <div id="hud">
+        <span id="errors" class="heart">❤️❤️❤️</span>
+        <span id="bubbles-popped" class="bubbles-popped">0</span>
+        <img src="/assets/sprite/bopped.png" alt="Bubble Icon" class="bubble-icon">
+        <span id="timer" class="timer">20</span>
+    </div>
+
+    <div id="end-game-container"> <!-- Ajout de la fenêtre de fin de partie -->
+        <div id="end-game-content">
+            <p id="end-game-message"></p>
+            <button id="replay-btn">Rejouer</button>
+        </div>
+    </div>
+
+    <div id="menu-container">
+        <div id="menu-banner">
+            <img id="game-title" src="/assets/sprite/tit1.png" alt="Titre du Jeu">
+        </div>
+        <div class="menu-text">
+            <p>Vous avez 50 seconde pour eclater</p>
+            <p>A 3 erreur vous perdez </p>
+            <p>Les 20 bulles dans l'ordre croissant</p>
+        </div>
+        <button id="start-button"><img src="/assets/sprite/start-btn.png"  class="start-b"></button>
+    </div>
+        
+    <div id="game-container"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <audio id="background-music" src="/assets/sound/basesong.mp3" loop autoplay></audio>
+    <audio id="bubble-pop-audio" src="/assets/sound/bubble-pop.mp3"></audio>
+    <audio id="bubble-pop-error-audio" src="/assets/sound/bubble-pop-error.mp3"></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.1.3/pixi.min.js"></script>
+    <script src="/assets/script/script.js"></script>
+</body>
+</html>

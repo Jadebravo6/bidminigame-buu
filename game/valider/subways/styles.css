@@ -1,0 +1,33 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #87CEEB; /* couleur de fond du ciel */
+}
+
+#game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #4CAF50; /* couleur du sol */
+    overflow: hidden;
+}
+
+#player {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: #FF5722; /* couleur du joueur */
+}
+
+#obstacle {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #3F51B5; /* couleur de l'obstacle */
+}

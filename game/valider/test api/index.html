@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire API</title>
+    <style>
+        /* Style pour le modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .loader {
+            display: none;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulaire API</h1>
+
+    <form id="apiForm">
+        <label for="bonus">Bonus:</label>
+        <input type="text" id="bonus" name="bonus" required>
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <div id="loader" class="loader"></div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour décoder le payload d'un token JWT
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        // Exemple de token JWT (remplace par ton token réel)
+        const token = '';
+
+        // Décoder le token et stocker les informations dans user
+        const decodedToken = parseJwt(token);
+        const user = {
+            id: decodedToken.id,
+            wallet: decodedToken.wallet
+        };
+
+        document.getElementById('apiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const bonus = document.getElementById('bonus').value;
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            // Première requête POST
+            fetch('https://ebid.injolab.com/api/bank/earnings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjIxODU1NDIsImV4cCI6MTcyMjI3MTk0Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpZGVudGlmaWVyIjoiYWRtaW4tMDA2QGNvbmdvLWJpZC5jb20iLCJnZW5kZXIiOiJNIiwiYmlydGhEYXRlIjp7ImRhdGUiOiIyMDA1LTA4LTEyIDIyOjU0OjI0LjAwMDAwMCIsInRpbWV6b25lX3R5cGUiOjMsInRpbWV6b25lIjoiVVRDIn0sImdpdmVuTmFtZSI6Ik1pY2hlbCIsImZhbWlseU5hbWUiOiJCVUtBIiwiYXZhdGFyIjoiL2ltYWdlcy9hdmF0YXJzL21hbGUucG5nIiwidXNlcm5hbWUiOiI5ODE4NjUxMyIsImlkIjoiMWVmNGE5N2UtNzYwNi02Y2ZhLWE3NzgtYzNhN2JjNWUzYjU0Iiwic3RhdHVzIjoxLCJjcmVhdGVkQXQiOnsiZGF0ZSI6IjIwMjQtMDctMjIgMDc6NDM6MDMuMDAwMDAwIiwidGltZXpvbmVfdHlwZSI6MywidGltZXpvbmUiOiJVVEMifSwiaXRBY3RpdmF0ZWQiOnRydWUsInBob25lIjoiMjQzODMwMDAwMDA2IiwiZW1haWwiOm51bGwsImxvZ2luQ291bnQiOjE2LCJmaXJzdExvZ2luIjp7ImRhdGUiOiIxOTkzLTEwLTE4IDE0OjAzOjA0LjAwMDAwMCIsInRpbWV6b25lX3R5cGUiOjMsInRpbWV6b25lIjoiVVRDIn0sImN1cnJlbmN5Ijp7ImlkIjoiMWVmNGE5N2UtNzMyOC02NTkyLWE4MWYtYzNhN2JjNWUzYjU0IiwibmFtZSI6IkVVUiJ9LCJ3YWxsZXQiOiIxZWY0YTk4Ny1iNmI5LTZjYjItOWNjMy1jM2E3YmM1ZTNiNTQiLCJiaWRQcmljZXMiOlt7IlVTRCI6MSwiYmlkcyI6MTAwMH0seyJFVVIiOjEsImJpZHMiOjEwMDB9LHsiQ0ZBIjoxMDAsImJpZHMiOjE1MH1dLCJjb3VudHJ5IjoiQ0QiLCJmbGFnIjp7Im5hbWUiOiJDb25nbyAtIEtpbnNoYXNhIiwiY29kZSI6IkNEIiwidW5pY29kZSI6IlUrMUYxRTggVSsxRjFFOSIsImltYWdlIjoiaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9jb3VudHJ5LWZsYWctZW1vamktanNvbkAyLjAuMC9kaXN0L2ltYWdlcy9DRC5zdmcifX0.CFYu0MrBAedMldtsqfE3sAbsrPPAbG0ziYsBPnTXg1Nc3FVcoEp-HsfAQRp6F12jY0XLvXaE5Qa4ttrWYcqOxFAFL5kx8faIPY7xL-AImC8fbX-SGDYMSp7LA0Yu9rTKtYcPsvaHCGvVhYAepqH3aKFlkqwLyINEjUqbrdwNXwauYerWfi9NFiGpRJBTW8WubbXAa7a6QN5hAhBy5LMS5TdgrFoNj3YU-Mxsv9DFFmAAErAYkiJ_CsCl7S_WYlfTum--P_mrfCUMX1a6VdZUCsFfdTuRj4OGEGRtK-LuA3lpIshjWpzHnh_SsyXCZeIDT-JcR3tPyPnmJc34KlZPnQ'
+                },
+                body: JSON.stringify({
+                    appGame: 'slotsmachine',
+                    bonus: bonus,
+                    wallet: `/api/bank/wallets/${user.wallet}`,
+                    
+
+
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const earningId = data.id;
+
+                // Deuxième requête POST
+                return fetch(`https://ebid.injolab.com/api/bank/earnings/${earningId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/merge-patch+json',
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MjIxODU1NDIsImV4cCI6MTcyMjI3MTk0Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpZGVudGlmaWVyIjoiYWRtaW4tMDA2QGNvbmdvLWJpZC5jb20iLCJnZW5kZXIiOiJNIiwiYmlydGhEYXRlIjp7ImRhdGUiOiIyMDA1LTA4LTEyIDIyOjU0OjI0LjAwMDAwMCIsInRpbWV6b25lX3R5cGUiOjMsInRpbWV6b25lIjoiVVRDIn0sImdpdmVuTmFtZSI6Ik1pY2hlbCIsImZhbWlseU5hbWUiOiJCVUtBIiwiYXZhdGFyIjoiL2ltYWdlcy9hdmF0YXJzL21hbGUucG5nIiwidXNlcm5hbWUiOiI5ODE4NjUxMyIsImlkIjoiMWVmNGE5N2UtNzYwNi02Y2ZhLWE3NzgtYzNhN2JjNWUzYjU0Iiwic3RhdHVzIjoxLCJjcmVhdGVkQXQiOnsiZGF0ZSI6IjIwMjQtMDctMjIgMDc6NDM6MDMuMDAwMDAwIiwidGltZXpvbmVfdHlwZSI6MywidGltZXpvbmUiOiJVVEMifSwiaXRBY3RpdmF0ZWQiOnRydWUsInBob25lIjoiMjQzODMwMDAwMDA2IiwiZW1haWwiOm51bGwsImxvZ2luQ291bnQiOjE2LCJmaXJzdExvZ2luIjp7ImRhdGUiOiIxOTkzLTEwLTE4IDE0OjAzOjA0LjAwMDAwMCIsInRpbWV6b25lX3R5cGUiOjMsInRpbWV6b25lIjoiVVRDIn0sImN1cnJlbmN5Ijp7ImlkIjoiMWVmNGE5N2UtNzMyOC02NTkyLWE4MWYtYzNhN2JjNWUzYjU0IiwibmFtZSI6IkVVUiJ9LCJ3YWxsZXQiOiIxZWY0YTk4Ny1iNmI5LTZjYjItOWNjMy1jM2E3YmM1ZTNiNTQiLCJiaWRQcmljZXMiOlt7IlVTRCI6MSwiYmlkcyI6MTAwMH0seyJFVVIiOjEsImJpZHMiOjEwMDB9LHsiQ0ZBIjoxMDAsImJpZHMiOjE1MH1dLCJjb3VudHJ5IjoiQ0QiLCJmbGFnIjp7Im5hbWUiOiJDb25nbyAtIEtpbnNoYXNhIiwiY29kZSI6IkNEIiwidW5pY29kZSI6IlUrMUYxRTggVSsxRjFFOSIsImltYWdlIjoiaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9jb3VudHJ5LWZsYWctZW1vamktanNvbkAyLjAuMC9kaXN0L2ltYWdlcy9DRC5zdmcifX0.CFYu0MrBAedMldtsqfE3sAbsrPPAbG0ziYsBPnTXg1Nc3FVcoEp-HsfAQRp6F12jY0XLvXaE5Qa4ttrWYcqOxFAFL5kx8faIPY7xL-AImC8fbX-SGDYMSp7LA0Yu9rTKtYcPsvaHCGvVhYAepqH3aKFlkqwLyINEjUqbrdwNXwauYerWfi9NFiGpRJBTW8WubbXAa7a6QN5hAhBy5LMS5TdgrFoNj3YU-Mxsv9DFFmAAErAYkiJ_CsCl7S_WYlfTum--P_mrfCUMX1a6VdZUCsFfdTuRj4OGEGRtK-LuA3lpIshjWpzHnh_SsyXCZeIDT-JcR3tPyPnmJc34KlZPnQ'
+
+                    },
+                    body: JSON.stringify({
+                        itApproved: true
+                    })
+                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                loader.style.display = 'none';
+                const modal = document.getElementById('myModal');
+                const modalMessage = document.getElementById('modalMessage');
+                modalMessage.textContent = `Vous avez gagné ${bonus} bid bonus !!!`;
+                modal.style.display = 'block';
+            })
+            .catch((error) => {
+                loader.style.display = 'none';
+                console.error('Erreur:', error);
+            });
+        });
+
+        // Fermer le modal quand on clique n'importe où en dehors de celui-ci
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
